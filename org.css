@@ -22,3 +22,12 @@ body {
     width: 49%;
     float: right;
 }
+
+section#sec-title-slide > h3 {
+    font-size: 3em;
+    font-weight: bolder;
+}
+section#sec-title-slide > h4 {
+    font-size: 2em;
+    font-weight: bolder;
+}
