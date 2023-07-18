@@ -23,11 +23,11 @@ body {
     float: right;
 }
 
-section#sec-title-slide > h3 {
+.title > h2 {
     font-size: 3em;
     font-weight: bolder;
 }
-section#sec-title-slide > h4 {
+.title > h3 {
     font-size: 2em;
     font-weight: bolder;
 }

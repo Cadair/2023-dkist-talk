@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>DKIST Level 1 Data and Using it in Python</title>
-<meta name="author" content="Stuart Mumford"/>
+<title></title>
+<meta name="author" content=""/>
 <meta name="description" content=""/>
 <meta name="keywords" content=""/>
 <style type="text/css">
@@ -29,34 +29,107 @@
 <body>
 <div class="reveal">
 <div class="slides">
-<section id="sec-title-slide" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.7"><h3>DKIST Level 1 Data and Using it in Python</h3>
-<h4>Stuart Mumford</h4>
-<a href="https://aperio.software"><img style='float: left; width: 30%; margin-top: 100px; height: 25%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 30%; margin-top: 60px; height: 25%; margin-right: 5%;' src='images/NSO-logo-blue.png'/></a>
-</section>
 
 <section>
-<section id="slide-org809460a" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org809460a">Me</h2>
+<section id="slide-orgb2eff0b" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.7" class="center title">
+<h2 id="orgb2eff0b">DKIST Level 1 Data and Using it in Python</h2>
+<h3> Stuart Mumford </h3>
+<a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
+
+</section>
+</section>
+<section>
+<section id="slide-org548210a" data-background="./images/DKIST_summit.jpg" data-background-opacity="0.7">
+<h2 id="org548210a">The Inouye Solar Telescope</h2>
+<aside class="notes">
+nil
+</aside>
+
+<div class='left' style='width: 60%; margin-left:-3em;font-weight: bolder;'>
+<ul>
+<li>The largest mirror of any solar telescope in the world - 4 meters.</li>
+<li>First solar images captured by the observatory in late 2019.</li>
+<li>Will be operational for at least 44 years – or four solar cycles.</li>
+<li>Two currently commissioned instruments:
+<ul>
+<li>VISP</li>
+<li>VBI</li>
+
+</ul></li>
+
+</ul>
+
+</div>
+
+</section>
+<section id="slide-orge4a4fe6" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="orge4a4fe6">Data</h3>
+<aside class="notes">
+<p>
+Data taken on summit, sent to data centre and then calibrated and then made available.
+</p>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org8380668" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3" class="center">
+<h2 id="org8380668">Python Tools</h2>
+<aside class="notes">
+<p>
+A quick summary, more details later
+</p>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbfd0f2d" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="orgbfd0f2d">Unique Challenges, Python Solutions</h2>
+<div class="outline-text-2" id="text-orgbfd0f2d">
+</div>
+</section>
+<section id="slide-org894596b" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="org894596b">Search and Download - Data / Metadata Separation</h3>
+</section>
+<section id="slide-org8314735" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="org8314735">Too many files - Dask and delayed IO</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbb41c5b" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="orgbb41c5b">Thank You</h2>
 <div class='left'>
 
 <p>
 Find me online:
 </p>
 
-<ul>
-<li><a href="https://cadair.com">cadair.com</a></li>
-<li><a href="https://matrix.to/#/@cadair:cadair.com">@cadair:cadair.com</a> on Matrix</li>
-<li><a href="https://mastodon.matrix.org/@Cadair">@Cadair@mastodon.matrix.org</a> on Mastodon</li>
-<li><a href="https://github.com/Cadair">@Cadair</a> on GitHub</li>
+<p>
+<a href="https://cadair.com">cadair.com</a>
+</p>
 
-</ul>
+<p>
+<a href="https://matrix.to/#/@cadair:cadair.com">@cadair:cadair.com</a> on Matrix
+</p>
+
+<p>
+<a href="https://mastodon.matrix.org/@Cadair">@Cadair@mastodon.matrix.org</a> on Mastodon
+</p>
+
+<p>
+<a href="https://github.com/Cadair">@Cadair</a> on GitHub
+</p>
 
 </div>
 
 <div class='right'>
 
 
-<div id="orgbcec8ad" class="figure">
+<div id="org099787d" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>
@@ -76,7 +149,7 @@ Find me online:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
 plugins: [RevealHighlight, RevealNotes],
-hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: true
+hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false
 });
 
 </script>

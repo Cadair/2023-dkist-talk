@@ -3,31 +3,72 @@
 #+REVEAL_HIGHLIGHT_CSS: %r/plugin/highlight/monokai.css
 #+REVEAL_PLUGINS: (highlight notes)
 #+REVEAL_THEME: simple
-#+REVEAL_TITLE_SLIDE_BACKGROUND: ./images/filt_Gband1_yellow1_1920.jpg
-#+REVEAL_TITLE_SLIDE_BACKGROUND_OPACITY: 0.7
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./images/filt_Gband1_yellow1_1920.jpg
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_OPACITY: 0.3
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
+#+OPTIONS: reveal_title_slide:nil
 #+REVEAL_EXTRA_CSS: org.css
-#+REVEAL_INIT_OPTIONS: hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: true
+#+REVEAL_INIT_OPTIONS: hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false
 
-#+TITLE: DKIST Level 1 Data and Using it in Python
-#+AUTHOR: Stuart Mumford
-#+REVEAL_TITLE_SLIDE: <h3>%t</h3>
-#+REVEAL_TITLE_SLIDE: <h4>%a</h4>
-#+REVEAL_TITLE_SLIDE: <a href="https://aperio.software"><img style='float: left; width: 30%%; margin-top: 100px; height: 25%%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 30%%; margin-top: 60px; height: 25%%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
+* DKIST Level 1 Data and Using it in Python
+:PROPERTIES:
+:reveal_extra_attr: class="center title"
+:reveal_background_opacity: 0.7
+:END:
 
-* Me
+#+REVEAL_HTML: <h3> Stuart Mumford </h3>
+#+REVEAL_HTML: <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
+
+* The Inouye Solar Telescope
+:PROPERTIES:
+:reveal_background: ./images/DKIST_summit.jpg
+:reveal_background_opacity: 0.7
+:END:
+#+BEGIN_NOTES
+#+END_NOTES
+
+#+REVEAL_HTML: <div class='left' style='width: 60%; margin-left:-3em;font-weight: bolder;'>
+- The largest mirror of any solar telescope in the world - 4 meters.
+- First solar images captured by the observatory in late 2019.
+- Will be operational for at least 44 years – or four solar cycles.
+- Two currently commissioned instruments:
+  - VISP
+  - VBI
+
+#+REVEAL_HTML: </div>
+
+** Data
+#+BEGIN_NOTES
+  Data taken on summit, sent to data centre and then calibrated and then made available.
+#+END_NOTES
+
+* Python Tools
+:PROPERTIES:
+:reveal_extra_attr: class="center"
+:END:
+#+BEGIN_NOTES
+A quick summary, more details later
+#+END_NOTES
+
+* Unique Challenges, Python Solutions
+
+** Search and Download - Data / Metadata Separation
+** Too many files - Dask and delayed IO
+
+* Thank You
 
 #+REVEAL_HTML: <div class='left'>
 
 Find me online:
 
-- [[https://cadair.com][cadair.com]]
-- [[https://matrix.to/#/@cadair:cadair.com][@cadair:cadair.com]] on Matrix
-- [[https://mastodon.matrix.org/@Cadair][@Cadair@mastodon.matrix.org]] on Mastodon
-- [[https://github.com/Cadair][@Cadair]] on GitHub
+ [[https://cadair.com][cadair.com]]
+
+ [[https://matrix.to/#/@cadair:cadair.com][@cadair:cadair.com]] on Matrix
+
+ [[https://mastodon.matrix.org/@Cadair][@Cadair@mastodon.matrix.org]] on Mastodon
+
+ [[https://github.com/Cadair][@Cadair]] on GitHub
 
 #+REVEAL_HTML: </div>
 
