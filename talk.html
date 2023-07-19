@@ -31,29 +31,36 @@
 <div class="slides">
 
 <section>
-<section id="slide-orgb2eff0b" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.7" class="center title">
-<h2 id="orgb2eff0b">DKIST Level 1 Data and Using it in Python</h2>
+<section id="slide-title" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.7" class="center title">
+<h2 id="title">DKIST Level 1 Data and Using it in Python</h2>
 <h3> Stuart Mumford </h3>
 <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
 
 </section>
 </section>
 <section>
-<section id="slide-org548210a" data-background="./images/DKIST_summit.jpg" data-background-opacity="0.7">
-<h2 id="org548210a">The Inouye Solar Telescope</h2>
+<section id="slide-dkist" data-background="./images/dkist-exterior.jpg" data-background-opacity="0.8">
+<h2 id="dkist">The Inouye Solar Telescope</h2>
 <aside class="notes">
 nil
 </aside>
 
-<div class='left' style='width: 60%; margin-left:-3em;font-weight: bolder;'>
+<div class='left' style='width: 60%; margin-left:-5em;font-weight: bolder;'>
 <ul>
 <li>The largest mirror of any solar telescope in the world - 4 meters.</li>
 <li>First solar images captured by the observatory in late 2019.</li>
 <li>Will be operational for at least 44 years – or four solar cycles.</li>
 <li>Two currently commissioned instruments:
 <ul>
-<li>VISP</li>
-<li>VBI</li>
+<li>Visible Spectropolarimeter (VISP)</li>
+<li>Visible Broadband Imager (VBI)</li>
+
+</ul></li>
+<li>Three more instruments in commissioning:
+<ul>
+<li>Cryogenic Near Infrared Spectropolarimeter (Cryo-NIRSP)</li>
+<li>Diffraction Limited Near Infrared Spectropolarimeter (DL-NIRSP)</li>
+<li>Visible Tunable Filter (VTF)</li>
 
 </ul></li>
 
@@ -62,20 +69,10 @@ nil
 </div>
 
 </section>
-<section id="slide-orge4a4fe6" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="orge4a4fe6">Data</h3>
-<aside class="notes">
-<p>
-Data taken on summit, sent to data centre and then calibrated and then made available.
-</p>
-
-</aside>
-
-</section>
 </section>
 <section>
-<section id="slide-org8380668" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3" class="center">
-<h2 id="org8380668">Python Tools</h2>
+<section id="slide-python" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="python">Python Tools</h2>
 <aside class="notes">
 <p>
 A quick summary, more details later
@@ -83,25 +80,60 @@ A quick summary, more details later
 
 </aside>
 
-</section>
-</section>
-<section>
-<section id="slide-orgbfd0f2d" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="orgbfd0f2d">Unique Challenges, Python Solutions</h2>
-<div class="outline-text-2" id="text-orgbfd0f2d">
+
+<div class='left'>
+
+<ul>
+<li><code>dkist</code> package available now on PyPI and conda-forge.</li>
+<li>Developed openly on GitHub since the start.</li>
+<li>Provides:
+<ul>
+<li>a plugin for SunPy's Fido to search datasets,</li>
+<li>helpers for downloading FITS files with Globus,</li>
+<li>A <code>Dataset</code> class based on <code>NDCube</code>.</li>
+
+</ul></li>
+<li>Uses <code>dask</code> to delay I/O of FITS files.</li>
+<li>Uses <code>gWCS</code> to represent the coordinates of the whole dataset.</li>
+
+</ul>
+
 </div>
-</section>
-<section id="slide-org894596b" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="org894596b">Search and Download - Data / Metadata Separation</h3>
-</section>
-<section id="slide-org8314735" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="org8314735">Too many files - Dask and delayed IO</h3>
+
+<div class='right'>
+
+
+<div id="org3957adf" class="figure">
+<p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="80%" />
+</p>
+</div>
+
+<div id="org5e5794a" class="figure">
+<p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
+</p>
+</div>
+
+</div>
 
 </section>
 </section>
 <section>
-<section id="slide-orgbb41c5b" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="orgbb41c5b">Thank You</h2>
+<section id="slide-orgf07e09c" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="orgf07e09c">Unique Challenges, Python Solutions</h2>
+<div class="outline-text-2" id="text-orgf07e09c">
+</div>
+</section>
+<section id="slide-orgd687a01" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="orgd687a01">Search and Download - Data / Metadata Separation</h3>
+</section>
+<section id="slide-orgc12b420" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="orgc12b420">Too many files - Dask and delayed IO</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-org956aecc" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="org956aecc">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -129,7 +161,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org099787d" class="figure">
+<div id="org192bdd6" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>
@@ -141,14 +173,13 @@ Find me online:
 </div>
 <script src="./src/reveal.js/dist/reveal.js"></script>
 <script src="./src/reveal.js/plugin/highlight/highlight.js"></script>
-<script src="./src/reveal.js/plugin/notes/notes.js"></script>
 
 
 <script>
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
-plugins: [RevealHighlight, RevealNotes],
+plugins: [RevealHighlight],
 hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false
 });
 

@@ -2,8 +2,8 @@
 
 index=./talk.org
 
-emacsversion=$(emacs --version | tr " " "\n" | sed -n 3p | sed 's|\(.*\)\..*|\1|')
-oxreveal=$(find ~/.emacs.spacemacs/elpa/$emacsversion/develop/ -type d -name "ox-reveal-*" -print -quit)
+emacsversion=$(emacs --version | tr " " "\n" | sed -n 3p)
+oxreveal=$(find ~/.emacs.doom/.local/straight/build-$emacsversion/ -type d -name "ox-reveal*" -print -quit)
 
 progn="(progn
   (package-initialize)

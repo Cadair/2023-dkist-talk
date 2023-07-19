@@ -1,7 +1,7 @@
 #+REVEAL_ROOT: ./src/reveal.js/
 #+REVEAL_MATHJAX_URL: ./src/mathjax/es5/tex-chtml.js
 #+REVEAL_HIGHLIGHT_CSS: %r/plugin/highlight/monokai.css
-#+REVEAL_PLUGINS: (highlight notes)
+#+REVEAL_PLUGINS: (highlight)
 #+REVEAL_THEME: simple
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./images/filt_Gband1_yellow1_1920.jpg
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_OPACITY: 0.3
@@ -13,6 +13,7 @@
 
 * DKIST Level 1 Data and Using it in Python
 :PROPERTIES:
+:CUSTOM_ID: title
 :reveal_extra_attr: class="center title"
 :reveal_background_opacity: 0.7
 :END:
@@ -22,34 +23,57 @@
 
 * The Inouye Solar Telescope
 :PROPERTIES:
-:reveal_background: ./images/DKIST_summit.jpg
-:reveal_background_opacity: 0.7
+:CUSTOM_ID: dkist
+:reveal_background: ./images/dkist-exterior.jpg
+:reveal_background_opacity: 0.8
 :END:
 #+BEGIN_NOTES
 #+END_NOTES
 
-#+REVEAL_HTML: <div class='left' style='width: 60%; margin-left:-3em;font-weight: bolder;'>
+#+REVEAL_HTML: <div class='left' style='width: 60%; margin-left:-5em;font-weight: bolder;'>
 - The largest mirror of any solar telescope in the world - 4 meters.
 - First solar images captured by the observatory in late 2019.
 - Will be operational for at least 44 years – or four solar cycles.
 - Two currently commissioned instruments:
-  - VISP
-  - VBI
+  - Visible Spectropolarimeter (VISP)
+  - Visible Broadband Imager (VBI)
+- Three more instruments in commissioning:
+  - Cryogenic Near Infrared Spectropolarimeter (Cryo-NIRSP)
+  - Diffraction Limited Near Infrared Spectropolarimeter (DL-NIRSP)
+  - Visible Tunable Filter (VTF)
 
 #+REVEAL_HTML: </div>
 
-** Data
-#+BEGIN_NOTES
-  Data taken on summit, sent to data centre and then calibrated and then made available.
-#+END_NOTES
-
 * Python Tools
 :PROPERTIES:
-:reveal_extra_attr: class="center"
+:CUSTOM_ID: python
 :END:
 #+BEGIN_NOTES
 A quick summary, more details later
 #+END_NOTES
+
+
+#+REVEAL_HTML: <div class='left'>
+
+- ~dkist~ package available now on PyPI and conda-forge.
+- Developed openly on GitHub since the start.
+- Provides:
+  - a plugin for SunPy's Fido to search datasets,
+  - helpers for downloading FITS files with Globus,
+  - A ~Dataset~ class based on ~NDCube~.
+- Uses ~dask~ to delay I/O of FITS files.
+- Uses ~gWCS~ to represent the coordinates of the whole dataset.
+
+#+REVEAL_HTML: </div>
+
+#+REVEAL_HTML: <div class='right'>
+
+#+attr_html: :width 80%
+[[./images/vbi_plot.png]]
+#+attr_html: :width 80%
+[[./images/dkist-repo-overview.png]]
+
+#+REVEAL_HTML: </div>
 
 * Unique Challenges, Python Solutions
 
