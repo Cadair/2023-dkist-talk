@@ -14,11 +14,13 @@
 * DKIST Level 1 Data and Using it in Python
 :PROPERTIES:
 :CUSTOM_ID: title
-:reveal_extra_attr: class="center title"
-:reveal_background_opacity: 0.7
+:reveal_extra_attr: class="title"
+:reveal_background: ./images/vbi_blue_hires.jpg
+:reveal_background_opacity: 1
+:reveal_background_position: top
 :END:
 
-#+REVEAL_HTML: <h3> Stuart Mumford </h3>
+#+REVEAL_HTML: <h3 style="padding-bottom: 20%;"> Stuart Mumford </h3>
 #+REVEAL_HTML: <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
 
 * The Inouye Solar Telescope
@@ -64,16 +66,56 @@ A quick summary, more details later
 - Uses ~dask~ to delay I/O of FITS files.
 - Uses ~gWCS~ to represent the coordinates of the whole dataset.
 
+#+attr_html: :width 80%
+[[./images/dkist-repo-overview.png]]
 #+REVEAL_HTML: </div>
 
 #+REVEAL_HTML: <div class='right'>
 
-#+attr_html: :width 80%
+#+attr_html: :width 90%
 [[./images/vbi_plot.png]]
-#+attr_html: :width 80%
-[[./images/dkist-repo-overview.png]]
 
 #+REVEAL_HTML: </div>
+
+* Level One Data
+:PROPERTIES:
+:CUSTOM_ID: datasets
+:END:
+
+The data holdings at the DKIST Data Center are catalogued in unique "datasets".
+
+#+BEGIN_QUOTE
+A dataset consists of a set of observations taken by a single instrument, at a single pass band.
+#+END_QUOTE
+
+This means that a dataset can contain a wide variety of data, slit-spectra, imaging, spectropolarimetic data etc.
+
+#+attr_html: :width 100%
+[[./images/portal_results.png]]
+
+** Makeup of a dataset
+:PROPERTIES:
+:CUSTOM_ID: datasets-layout
+:END:
+#+BEGIN_NOTES
+One ASDF - all metadata + gWCS
+Many FITS - current max 33,000 - 100s of 1000s possible - ulimit.
+FITS get ordered
+#+END_NOTES
+
+- Each "calibrated exposure" is in a FITS file with a complete header.
+- Each dataset contains /many/ FITS files (current max is 33,000).
+- To reconstruct these files into a multi-dim array we need to /order/ them.
+
+** ASDF Files
+:PROPERTIES:
+:CUSTOM_ID: datasets-layout
+:END:
+#+BEGIN_NOTES
+What is an ASDF file.
+What's in the ASDF file.
+Why the ASDF file.
+#+END_NOTES
 
 * Unique Challenges, Python Solutions
 

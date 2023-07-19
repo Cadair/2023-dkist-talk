@@ -31,9 +31,9 @@
 <div class="slides">
 
 <section>
-<section id="slide-title" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.7" class="center title">
+<section id="slide-title" data-background="./images/vbi_blue_hires.jpg" data-background-position="top" data-background-opacity="1" class="title">
 <h2 id="title">DKIST Level 1 Data and Using it in Python</h2>
-<h3> Stuart Mumford </h3>
+<h3 style="padding-bottom: 20%;"> Stuart Mumford </h3>
 <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
 
 </section>
@@ -98,18 +98,18 @@ A quick summary, more details later
 
 </ul>
 
+
+<div id="org01f12ef" class="figure">
+<p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
+</p>
+</div>
 </div>
 
 <div class='right'>
 
 
-<div id="org3957adf" class="figure">
-<p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="80%" />
-</p>
-</div>
-
-<div id="org5e5794a" class="figure">
-<p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
+<div id="orgf4bf736" class="figure">
+<p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="90%" />
 </p>
 </div>
 
@@ -118,22 +118,78 @@ A quick summary, more details later
 </section>
 </section>
 <section>
-<section id="slide-orgf07e09c" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="orgf07e09c">Unique Challenges, Python Solutions</h2>
-<div class="outline-text-2" id="text-orgf07e09c">
+<section id="slide-datasets" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="datasets">Level One Data</h2>
+<p>
+The data holdings at the DKIST Data Center are catalogued in unique "datasets".
+</p>
+
+<blockquote >
+<p>
+A dataset consists of a set of observations taken by a single instrument, at a single pass band.
+</p>
+</blockquote>
+
+<p>
+This means that a dataset can contain a wide variety of data, slit-spectra, imaging, spectropolarimetic data etc.
+</p>
+
+
+<div id="org403014c" class="figure">
+<p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
+</p>
 </div>
+
 </section>
-<section id="slide-orgd687a01" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="orgd687a01">Search and Download - Data / Metadata Separation</h3>
+<section id="slide-datasets-layout" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="datasets-layout">Makeup of a dataset</h3>
+<aside class="notes">
+<p>
+One ASDF - all metadata + gWCS
+Many FITS - current max 33,000 - 100s of 1000s possible - ulimit.
+FITS get ordered
+</p>
+
+</aside>
+
+<ul>
+<li>Each "calibrated exposure" is in a FITS file with a complete header.</li>
+<li>Each dataset contains <i>many</i> FITS files (current max is 33,000).</li>
+<li>To reconstruct these files into a multi-dim array we need to <i>order</i> them.</li>
+
+</ul>
+
 </section>
-<section id="slide-orgc12b420" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="orgc12b420">Too many files - Dask and delayed IO</h3>
+<section id="slide-datasets-layout" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="datasets-layout">ASDF Files</h3>
+<aside class="notes">
+<p>
+What is an ASDF file.
+What's in the ASDF file.
+Why the ASDF file.
+</p>
+
+</aside>
 
 </section>
 </section>
 <section>
-<section id="slide-org956aecc" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org956aecc">Thank You</h2>
+<section id="slide-org3002038" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="org3002038">Unique Challenges, Python Solutions</h2>
+<div class="outline-text-2" id="text-org3002038">
+</div>
+</section>
+<section id="slide-orgd75d912" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="orgd75d912">Search and Download - Data / Metadata Separation</h3>
+</section>
+<section id="slide-orgf8607db" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="orgf8607db">Too many files - Dask and delayed IO</h3>
+
+</section>
+</section>
+<section>
+<section id="slide-org9f74687" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="org9f74687">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -161,7 +217,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org192bdd6" class="figure">
+<div id="org1ed8552" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>
