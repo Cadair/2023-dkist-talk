@@ -1,11 +1,28 @@
-body {
-    font-family: Lato, Ariel, sans-serif !important;
-}
-
-.reveal {
-    font-size: 130%;
-    overflow-y: scroll;
-    font-family: Lato, Ariel, sans-serif !important;
+:root {
+  --r-background-color: #fff;
+  --r-main-font: Lato, sans-serif;
+  --r-main-font-size: 22px;
+  --r-main-color: #000;
+  --r-block-margin: 20px;
+  --r-heading-margin: 0 0 20px 0;
+  --r-heading-font: News Cycle, Impact, sans-serif;
+  --r-heading-color: #000;
+  --r-heading-line-height: 1.2;
+  --r-heading-letter-spacing: normal;
+  --r-heading-text-transform: none;
+  --r-heading-text-shadow: none;
+  --r-heading-font-weight: normal;
+  --r-heading1-text-shadow: none;
+  --r-heading1-size: 3.77em;
+  --r-heading2-size: 2.11em;
+  --r-heading3-size: 2.11em;
+  --r-heading4-size: 2.11em;
+  --r-code-font: monospace;
+  --r-link-color: #00008B;
+  --r-link-color-dark: #00003f;
+  --r-link-color-hover: #0000f1;
+  --r-selection-background-color: rgba(0, 0, 0, 0.99);
+  --r-selection-color: #fff;
 }
 
 .reveal section img {

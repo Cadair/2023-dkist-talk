@@ -99,7 +99,7 @@ A quick summary, more details later
 </ul>
 
 
-<div id="org01f12ef" class="figure">
+<div id="orgb564f05" class="figure">
 <p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
 </p>
 </div>
@@ -108,7 +108,7 @@ A quick summary, more details later
 <div class='right'>
 
 
-<div id="orgf4bf736" class="figure">
+<div id="orgd963444" class="figure">
 <p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="90%" />
 </p>
 </div>
@@ -135,7 +135,7 @@ This means that a dataset can contain a wide variety of data, slit-spectra, imag
 </p>
 
 
-<div id="org403014c" class="figure">
+<div id="orgab206bd" class="figure">
 <p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
 </p>
 </div>
@@ -146,7 +146,7 @@ This means that a dataset can contain a wide variety of data, slit-spectra, imag
 <aside class="notes">
 <p>
 One ASDF - all metadata + gWCS
-Many FITS - current max 33,000 - 100s of 1000s possible - ulimit.
+Many FITS - current max 33,000 - 100s of 1000s possible
 FITS get ordered
 </p>
 
@@ -172,24 +172,60 @@ Why the ASDF file.
 </aside>
 
 </section>
+<section id="slide-challenge-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="challenge-download">Search and Download - Data / Metadata Separation</h3>
+<blockquote >
+<p>
+How can we make it possible to download a subset of the data based on metadata.
+</p>
+</blockquote>
+
+<p>
+The scale of the DKIST datasets mean that pre-processing them before download is not feasible.
+</p>
+
+<p>
+Maximum flexibility is achieved by facilitating download based on all metadata.
+</p>
+
+<p>
+Arbitrary queries based on all available metadata is a complex problem for a web service.
+</p>
+
 </section>
-<section>
-<section id="slide-org3002038" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org3002038">Unique Challenges, Python Solutions</h2>
-<div class="outline-text-2" id="text-org3002038">
+<section id="slide-search-and-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h4 id="search-and-download">Search for metadata data</h4>
+<p>
+The DKIST search portal and <code>dkist</code> package allow searching based on a limited subset of all metadata.
+</p>
+
+<p>
+Downloading the ASDF file gives you a <i>complete</i> set of metadata for all files contained in a dataset.
+</p>
+
+<div class="org-src-container">
+
+<pre   ><code class="python" ># Select headers for only frames with bad r0
+bad_headers = ds.headers[ds.headers["ATMOS_R0"] &gt; 1]
+
+# Slice up to the index of the first bad frame
+sds = ds[0, :bad_headers[0]["DINDEX3"]-1, :, :]
+
+# Download only files with good seeing.
+sds.files.download(path="~/dkist/data/{dataset_id}/")
+</code></pre>
 </div>
+
+
 </section>
-<section id="slide-orgd75d912" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="orgd75d912">Search and Download - Data / Metadata Separation</h3>
-</section>
-<section id="slide-orgf8607db" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="orgf8607db">Too many files - Dask and delayed IO</h3>
+<section id="slide-orgde67de3" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="orgde67de3">Too many files - Dask and delayed IO</h3>
 
 </section>
 </section>
 <section>
-<section id="slide-org9f74687" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org9f74687">Thank You</h2>
+<section id="slide-org912c820" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="org912c820">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -217,7 +253,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org1ed8552" class="figure">
+<div id="org6ffcd38" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>

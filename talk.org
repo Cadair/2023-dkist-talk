@@ -99,7 +99,7 @@ This means that a dataset can contain a wide variety of data, slit-spectra, imag
 :END:
 #+BEGIN_NOTES
 One ASDF - all metadata + gWCS
-Many FITS - current max 33,000 - 100s of 1000s possible - ulimit.
+Many FITS - current max 33,000 - 100s of 1000s possible
 FITS get ordered
 #+END_NOTES
 
@@ -117,9 +117,42 @@ What's in the ASDF file.
 Why the ASDF file.
 #+END_NOTES
 
-* Unique Challenges, Python Solutions
-
 ** Search and Download - Data / Metadata Separation
+:PROPERTIES:
+:CUSTOM_ID: challenge-download
+:END:
+
+#+BEGIN_QUOTE
+How can we make it possible to download a subset of the data based on metadata.
+#+END_QUOTE
+
+The scale of the DKIST datasets mean that pre-processing them before download is not feasible.
+
+Maximum flexibility is achieved by facilitating download based on all metadata.
+
+Arbitrary queries based on all available metadata is a complex problem for a web service.
+
+*** Search for metadata data
+:PROPERTIES:
+:CUSTOM_ID: search-and-download
+:END:
+
+The DKIST search portal and ~dkist~ package allow searching based on a limited subset of all metadata.
+
+Downloading the ASDF file gives you a /complete/ set of metadata for all files contained in a dataset.
+
+#+BEGIN_SRC python
+# Select headers for only frames with bad r0
+bad_headers = ds.headers[ds.headers["ATMOS_R0"] > 1]
+
+# Slice up to the index of the first bad frame
+sds = ds[0, :bad_headers[0]["DINDEX3"]-1, :, :]
+
+# Download only files with good seeing.
+sds.files.download(path="~/dkist/data/{dataset_id}/")
+#+END_SRC
+
+
 ** Too many files - Dask and delayed IO
 
 * Thank You
