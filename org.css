@@ -44,7 +44,12 @@
     font-size: 3em;
     font-weight: bolder;
 }
+
 .title > h3 {
     font-size: 2em;
     font-weight: bolder;
+}
+
+.reveal blockquote {
+    background: rgba(255, 255, 255, 0.5);
 }

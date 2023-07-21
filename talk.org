@@ -85,7 +85,7 @@ A quick summary, more details later
 The data holdings at the DKIST Data Center are catalogued in unique "datasets".
 
 #+BEGIN_QUOTE
-A dataset consists of a set of observations taken by a single instrument, at a single pass band.
+A dataset broadly consists of a set of observations taken by a single instrument, at a single pass band.
 #+END_QUOTE
 
 This means that a dataset can contain a wide variety of data, slit-spectra, imaging, spectropolarimetic data etc.
@@ -116,6 +116,14 @@ What is an ASDF file.
 What's in the ASDF file.
 Why the ASDF file.
 #+END_NOTES
+
+- Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.
+- Powerful Python library, and initial support in C++ and IDL.
+- DKIST ASDF files contain:
+  - A copy of all the FITS headers for all files.
+  - A copy of the inventory record which is searchable via the DKIST data search API.
+  - An ordered list of filenames, and information about the array, such as dtype and shape.
+  - A gWCS object representing world coordinates for the whole dataset array.
 
 ** Search and Download - Data / Metadata Separation
 :PROPERTIES:
@@ -154,6 +162,17 @@ sds.files.download(path="~/dkist/data/{dataset_id}/")
 
 
 ** Too many files - Dask and delayed IO
+:PROPERTIES:
+:CUSTOM_ID: delayed-io
+:END:
+
+#+BEGIN_QUOTE
+You think you can open 10s or 100s of thousands files at once, but you just can't.
+#+END_QUOTE
+
+Rather than opening all the files to read the headers to reconstruct the whole array, we read the "recipe" for the array from the ASDF file.
+
+We build an array comprised of all the arrays in the FITS files, but it's "delayed" by using ~dask~, so the files are only opened on demand.
 
 * Thank You
 

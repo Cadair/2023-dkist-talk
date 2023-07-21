@@ -99,7 +99,7 @@ A quick summary, more details later
 </ul>
 
 
-<div id="orgb564f05" class="figure">
+<div id="org764b60b" class="figure">
 <p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
 </p>
 </div>
@@ -108,7 +108,7 @@ A quick summary, more details later
 <div class='right'>
 
 
-<div id="orgd963444" class="figure">
+<div id="org041baaf" class="figure">
 <p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="90%" />
 </p>
 </div>
@@ -126,7 +126,7 @@ The data holdings at the DKIST Data Center are catalogued in unique "datasets".
 
 <blockquote >
 <p>
-A dataset consists of a set of observations taken by a single instrument, at a single pass band.
+A dataset broadly consists of a set of observations taken by a single instrument, at a single pass band.
 </p>
 </blockquote>
 
@@ -135,7 +135,7 @@ This means that a dataset can contain a wide variety of data, slit-spectra, imag
 </p>
 
 
-<div id="orgab206bd" class="figure">
+<div id="org960fbcc" class="figure">
 <p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
 </p>
 </div>
@@ -170,6 +170,20 @@ Why the ASDF file.
 </p>
 
 </aside>
+
+<ul>
+<li>Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.</li>
+<li>Powerful Python library, and initial support in C++ and IDL.</li>
+<li>DKIST ASDF files contain:
+<ul>
+<li>A copy of all the FITS headers for all files.</li>
+<li>A copy of the inventory record which is searchable via the DKIST data search API.</li>
+<li>An ordered list of filenames, and information about the array, such as dtype and shape.</li>
+<li>A gWCS object representing world coordinates for the whole dataset array.</li>
+
+</ul></li>
+
+</ul>
 
 </section>
 <section id="slide-challenge-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
@@ -218,14 +232,27 @@ sds.files.download(path="~/dkist/data/{dataset_id}/")
 
 
 </section>
-<section id="slide-orgde67de3" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h3 id="orgde67de3">Too many files - Dask and delayed IO</h3>
+<section id="slide-delayed-io" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h3 id="delayed-io">Too many files - Dask and delayed IO</h3>
+<blockquote >
+<p>
+You think you can open 10s or 100s of thousands files at once, but you just can't.
+</p>
+</blockquote>
+
+<p>
+Rather than opening all the files to read the headers to reconstruct the whole array, we read the "recipe" for the array from the ASDF file.
+</p>
+
+<p>
+We build an array comprised of all the arrays in the FITS files, but it's "delayed" by using <code>dask</code>, so the files are only opened on demand.
+</p>
 
 </section>
 </section>
 <section>
-<section id="slide-org912c820" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org912c820">Thank You</h2>
+<section id="slide-org622f077" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="org622f077">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -253,7 +280,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org6ffcd38" class="figure">
+<div id="org5543b7f" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>
