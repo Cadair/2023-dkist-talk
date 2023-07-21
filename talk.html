@@ -99,7 +99,7 @@ A quick summary, more details later
 </ul>
 
 
-<div id="org764b60b" class="figure">
+<div id="org361372e" class="figure">
 <p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
 </p>
 </div>
@@ -108,7 +108,7 @@ A quick summary, more details later
 <div class='right'>
 
 
-<div id="org041baaf" class="figure">
+<div id="org1a4137f" class="figure">
 <p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="90%" />
 </p>
 </div>
@@ -135,7 +135,7 @@ This means that a dataset can contain a wide variety of data, slit-spectra, imag
 </p>
 
 
-<div id="org960fbcc" class="figure">
+<div id="org7f193a5" class="figure">
 <p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
 </p>
 </div>
@@ -248,11 +248,57 @@ Rather than opening all the files to read the headers to reconstruct the whole a
 We build an array comprised of all the arrays in the FITS files, but it's "delayed" by using <code>dask</code>, so the files are only opened on demand.
 </p>
 
+
+<div id="org7dac56a" class="figure">
+<p><img src="./images/dask-repr.png" alt="dask-repr.png" width="500px" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgc453f31" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h4 id="orgc453f31">Distributed Parallel</h4>
+
 </section>
 </section>
 <section>
-<section id="slide-org622f077" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org622f077">Thank You</h2>
+<section id="slide-status" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="status">Current and Future Status</h2>
+<blockquote >
+<p>
+<code>dkist</code> v1.0.0 is close to release (couple of weeks away).
+</p>
+</blockquote>
+
+<p>
+<b>Features Implemented in v1.0.0:</b>
+</p>
+
+<ul>
+<li>Reading ASDF files into <code>Dataset</code> objects.</li>
+<li>A SunPy Fido client for searching DKIST datasets.</li>
+<li>Helpers for making Globus data downloads easier.</li>
+<li>Extensions to the <code>NDCube</code> API for working with the collection of FITS files.</li>
+<li>Internal functionality for building <code>dask</code> arrays from many FITS files.</li>
+
+</ul>
+
+<p>
+<b>Upcoming development:</b>
+</p>
+
+<ul>
+<li>Fixing use of <code>Dataset.crop</code> for slicing based on world coordinates.</li>
+<li>Helpers and documentation for modifying Datasets (i.e. shifting pointing).</li>
+<li>Performance improvements, on transforms and data loading.</li>
+<li>Better tools for working with VBI mosaics.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org77167a3" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<h2 id="org77167a3">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -280,7 +326,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org5543b7f" class="figure">
+<div id="orgac2d911" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>

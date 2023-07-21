@@ -174,6 +174,35 @@ Rather than opening all the files to read the headers to reconstruct the whole a
 
 We build an array comprised of all the arrays in the FITS files, but it's "delayed" by using ~dask~, so the files are only opened on demand.
 
+#+attr_html: :width 500px
+[[./images/dask-repr.png]]
+
+*** Distributed Parallel
+
+* Current and Future Status
+:PROPERTIES:
+:CUSTOM_ID: status
+:END:
+
+#+BEGIN_QUOTE
+~dkist~ v1.0.0 is close to release (couple of weeks away).
+#+END_QUOTE
+
+*Features Implemented in v1.0.0:*
+
+- Reading ASDF files into ~Dataset~ objects.
+- A SunPy Fido client for searching DKIST datasets.
+- Helpers for making Globus data downloads easier.
+- Extensions to the ~NDCube~ API for working with the collection of FITS files.
+- Internal functionality for building ~dask~ arrays from many FITS files.
+
+*Upcoming development:*
+
+- Fixing use of ~Dataset.crop~ for slicing based on world coordinates.
+- Helpers and documentation for modifying Datasets (i.e. shifting pointing).
+- Performance improvements, on transforms and data loading.
+- Better tools for working with VBI mosaics.
+
 * Thank You
 
 #+REVEAL_HTML: <div class='left'>
