@@ -42,21 +42,27 @@
 <section id="slide-dkist" data-background="./images/dkist-exterior.jpg" data-background-opacity="0.8">
 <h2 id="dkist">The Inouye Solar Telescope</h2>
 <aside class="notes">
-nil
+<ul>
+<li>VISP is a slit-spectrograph with polarimitery.</li>
+<li>VBI is a dual-channel broadband imager.</li>
+
+</ul>
+
 </aside>
 
 <div class='left' style='width: 60%; margin-left:-5em;font-weight: bolder;'>
 <ul>
+<li>At the Haleakalā Observatory on the island of Maui.</li>
 <li>The largest mirror of any solar telescope in the world - 4 meters.</li>
 <li>First solar images captured by the observatory in late 2019.</li>
 <li>Will be operational for at least 44 years – or four solar cycles.</li>
-<li>Two currently commissioned instruments:
+<li>Two instruments currently on-line:
 <ul>
 <li>Visible Spectropolarimeter (VISP)</li>
 <li>Visible Broadband Imager (VBI)</li>
 
 </ul></li>
-<li>Three more instruments in commissioning:
+<li>Three more instruments coming on-line:
 <ul>
 <li>Cryogenic Near Infrared Spectropolarimeter (Cryo-NIRSP)</li>
 <li>Diffraction Limited Near Infrared Spectropolarimeter (DL-NIRSP)</li>
@@ -65,21 +71,21 @@ nil
 </ul></li>
 
 </ul>
-
 </div>
 
 </section>
 </section>
 <section>
-<section id="slide-python" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-python" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h2 id="python">Python Tools</h2>
 <aside class="notes">
-<p>
-A quick summary, more details later
-</p>
+<ul>
+<li><code>dkist</code> package aims to make it easy to get and load DKIST data.</li>
+<li>Also a place for the community to collaborate on DKIST-specifc analysis tools.</li>
+
+</ul>
 
 </aside>
-
 
 <div class='left'>
 
@@ -99,7 +105,7 @@ A quick summary, more details later
 </ul>
 
 
-<div id="org361372e" class="figure">
+<div id="org9875955" class="figure">
 <p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" />
 </p>
 </div>
@@ -108,7 +114,7 @@ A quick summary, more details later
 <div class='right'>
 
 
-<div id="org1a4137f" class="figure">
+<div id="org01c1f64" class="figure">
 <p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="90%" />
 </p>
 </div>
@@ -118,37 +124,44 @@ A quick summary, more details later
 </section>
 </section>
 <section>
-<section id="slide-datasets" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-datasets" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h2 id="datasets">Level One Data</h2>
+<aside class="notes">
+<p>
+A dataset is the result of a calibration run, and can be loaded into a single array.
+</p>
+
+</aside>
+
 <p>
 The data holdings at the DKIST Data Center are catalogued in unique "datasets".
 </p>
 
 <blockquote >
 <p>
-A dataset broadly consists of a set of observations taken by a single instrument, at a single pass band.
+A dataset broadly consists of a continuous set of observations taken by a single instrument, at a single pass band, with similar instrument parameters.
 </p>
 </blockquote>
 
 <p>
-This means that a dataset can contain a wide variety of data, slit-spectra, imaging, spectropolarimetic data etc.
+This means that a dataset can contain a wide variety of data, such as, slit-spectra, imaging, spectropolarimetic data etc.
 </p>
 
 
-<div id="org7f193a5" class="figure">
+<div id="orgb50d841" class="figure">
 <p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
 </p>
 </div>
 
 </section>
-<section id="slide-datasets-layout" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-datasets-layout" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h3 id="datasets-layout">Makeup of a dataset</h3>
 <aside class="notes">
-<p>
-One ASDF - all metadata + gWCS
-Many FITS - current max 33,000 - 100s of 1000s possible
-FITS get ordered
-</p>
+<ul>
+<li>Many FITS - current max 33,000 - 100s of 1000s possible</li>
+<li>Each FITS file has a well documented header with information about where that file sits in the dataset array.</li>
+
+</ul>
 
 </aside>
 
@@ -160,21 +173,23 @@ FITS get ordered
 </ul>
 
 </section>
-<section id="slide-datasets-layout" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-datasets-layout" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h3 id="datasets-layout">ASDF Files</h3>
 <aside class="notes">
-<p>
-What is an ASDF file.
-What's in the ASDF file.
-Why the ASDF file.
-</p>
+<ul>
+<li>What is an ASDF file.</li>
+<li>What's in the ASDF file.</li>
+<li>Why the ASDF file.</li>
+
+</ul>
 
 </aside>
 
 <ul>
-<li>Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.</li>
-<li>Powerful Python library, and initial support in C++ and IDL.</li>
-<li>DKIST ASDF files contain:
+<li class="fragment fade-in">Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.</li>
+<li class="fragment fade-in">Powerful Python library, and initial support in C++ and IDL.</li>
+<li class="fragment fade-in">Used heavily by JWST data.</li>
+<li class="fragment fade-in">DKIST ASDF files contain:
 <ul>
 <li>A copy of all the FITS headers for all files.</li>
 <li>A copy of the inventory record which is searchable via the DKIST data search API.</li>
@@ -186,8 +201,15 @@ Why the ASDF file.
 </ul>
 
 </section>
-<section id="slide-challenge-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-challenge-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h3 id="challenge-download">Search and Download - Data / Metadata Separation</h3>
+<aside class="notes">
+<ul>
+<li>From the web data portal it's only possible to download complete datasets.</li>
+
+</ul>
+
+</aside>
 <blockquote >
 <p>
 How can we make it possible to download a subset of the data based on metadata.
@@ -207,8 +229,16 @@ Arbitrary queries based on all available metadata is a complex problem for a web
 </p>
 
 </section>
-<section id="slide-search-and-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-search-and-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h4 id="search-and-download">Search for metadata data</h4>
+<aside class="notes">
+<ul>
+<li>In this example we access the full table of FITS headers and use those headers to decide where the good seeing ends.</li>
+
+</ul>
+
+</aside>
+
 <p>
 The DKIST search portal and <code>dkist</code> package allow searching based on a limited subset of all metadata.
 </p>
@@ -232,8 +262,18 @@ sds.files.download(path="~/dkist/data/{dataset_id}/")
 
 
 </section>
-<section id="slide-delayed-io" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-delayed-io" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h3 id="delayed-io">Too many files - Dask and delayed IO</h3>
+<aside class="notes">
+<ul>
+<li>Given a whole set of FITS files you could open them all and parse the headers.</li>
+<li>Much quicker to read the ASDF file which already contains the metadata needed.</li>
+<li>Dask is a project designed to parallelise Python code.</li>
+
+</ul>
+
+</aside>
+
 <blockquote >
 <p>
 You think you can open 10s or 100s of thousands files at once, but you just can't.
@@ -249,19 +289,42 @@ We build an array comprised of all the arrays in the FITS files, but it's "delay
 </p>
 
 
-<div id="org7dac56a" class="figure">
-<p><img src="./images/dask-repr.png" alt="dask-repr.png" width="500px" />
+<div id="orgadc478b" class="figure">
+<p><img src="./images/dask-repr.png" alt="dask-repr.png" width="90%" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgc453f31" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h4 id="orgc453f31">Distributed Parallel</h4>
+<section id="slide-distributed" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
+<h4 id="distributed">Delayed Compute</h4>
+<aside class="notes">
+<ul>
+<li>Computation of the array isn't triggered until it's needed or you do it explicitly.</li>
+<li>Here we do a rebinning operation and then trigger the compute.</li>
+<li>Dask can schedule compute in parallel, locally, on the cloud or on HPC clusters</li>
+
+</ul>
+
+</aside>
+
+<div class="org-src-container">
+
+<pre   ><code class="python" >ds = dkist.load_dataset("~/dkist/AGLKO/")
+rebinned_ds = ds[0, ..., :-5].rebin((10, 1, 10))
+computed_data = rebinned_ds.data.compute()
+</code></pre>
+</div>
+
+
+<div id="org4650891" class="figure">
+<p><img src="./images/dask-distributed-rebin.png" alt="dask-distributed-rebin.png" width="90%" />
+</p>
+</div>
 
 </section>
 </section>
 <section>
-<section id="slide-status" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
+<section id="slide-status" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h2 id="status">Current and Future Status</h2>
 <blockquote >
 <p>
@@ -297,8 +360,8 @@ We build an array comprised of all the arrays in the FITS files, but it's "delay
 </section>
 </section>
 <section>
-<section id="slide-org77167a3" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.3">
-<h2 id="org77167a3">Thank You</h2>
+<section id="slide-org5f0d463" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
+<h2 id="org5f0d463">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -326,7 +389,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="orgac2d911" class="figure">
+<div id="orgfb385af" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>
@@ -337,6 +400,7 @@ Find me online:
 </div>
 </div>
 <script src="./src/reveal.js/dist/reveal.js"></script>
+<script src="./src/reveal.js/plugin/notes/notes.js"></script>
 <script src="./src/reveal.js/plugin/highlight/highlight.js"></script>
 
 
@@ -344,7 +408,7 @@ Find me online:
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
-plugins: [RevealHighlight],
+plugins: [RevealNotes, RevealHighlight],
 hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false
 });
 

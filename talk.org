@@ -1,10 +1,10 @@
 #+REVEAL_ROOT: ./src/reveal.js/
 #+REVEAL_MATHJAX_URL: ./src/mathjax/es5/tex-chtml.js
 #+REVEAL_HIGHLIGHT_CSS: %r/plugin/highlight/monokai.css
-#+REVEAL_PLUGINS: (highlight)
+#+REVEAL_PLUGINS: (notes highlight)
 #+REVEAL_THEME: simple
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./images/filt_Gband1_yellow1_1920.jpg
-#+REVEAL_DEFAULT_SLIDE_BACKGROUND_OPACITY: 0.3
+#+REVEAL_DEFAULT_SLIDE_BACKGROUND_OPACITY: 0.2
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+OPTIONS: reveal_title_slide:nil
@@ -30,20 +30,22 @@
 :reveal_background_opacity: 0.8
 :END:
 #+BEGIN_NOTES
+- VISP is a slit-spectrograph with polarimitery.
+- VBI is a dual-channel broadband imager.
 #+END_NOTES
 
 #+REVEAL_HTML: <div class='left' style='width: 60%; margin-left:-5em;font-weight: bolder;'>
+- At the Haleakalā Observatory on the island of Maui.
 - The largest mirror of any solar telescope in the world - 4 meters.
 - First solar images captured by the observatory in late 2019.
 - Will be operational for at least 44 years – or four solar cycles.
-- Two currently commissioned instruments:
+- Two instruments currently on-line:
   - Visible Spectropolarimeter (VISP)
   - Visible Broadband Imager (VBI)
-- Three more instruments in commissioning:
+- Three more instruments coming on-line:
   - Cryogenic Near Infrared Spectropolarimeter (Cryo-NIRSP)
   - Diffraction Limited Near Infrared Spectropolarimeter (DL-NIRSP)
   - Visible Tunable Filter (VTF)
-
 #+REVEAL_HTML: </div>
 
 * Python Tools
@@ -51,9 +53,9 @@
 :CUSTOM_ID: python
 :END:
 #+BEGIN_NOTES
-A quick summary, more details later
+- ~dkist~ package aims to make it easy to get and load DKIST data.
+- Also a place for the community to collaborate on DKIST-specifc analysis tools.
 #+END_NOTES
-
 
 #+REVEAL_HTML: <div class='left'>
 
@@ -81,14 +83,17 @@ A quick summary, more details later
 :PROPERTIES:
 :CUSTOM_ID: datasets
 :END:
+#+BEGIN_NOTES
+A dataset is the result of a calibration run, and can be loaded into a single array.
+#+END_NOTES
 
 The data holdings at the DKIST Data Center are catalogued in unique "datasets".
 
 #+BEGIN_QUOTE
-A dataset broadly consists of a set of observations taken by a single instrument, at a single pass band.
+A dataset broadly consists of a continuous set of observations taken by a single instrument, at a single pass band, with similar instrument parameters.
 #+END_QUOTE
 
-This means that a dataset can contain a wide variety of data, slit-spectra, imaging, spectropolarimetic data etc.
+This means that a dataset can contain a wide variety of data, such as, slit-spectra, imaging, spectropolarimetic data etc.
 
 #+attr_html: :width 100%
 [[./images/portal_results.png]]
@@ -98,9 +103,8 @@ This means that a dataset can contain a wide variety of data, slit-spectra, imag
 :CUSTOM_ID: datasets-layout
 :END:
 #+BEGIN_NOTES
-One ASDF - all metadata + gWCS
-Many FITS - current max 33,000 - 100s of 1000s possible
-FITS get ordered
+- Many FITS - current max 33,000 - 100s of 1000s possible
+- Each FITS file has a well documented header with information about where that file sits in the dataset array.
 #+END_NOTES
 
 - Each "calibrated exposure" is in a FITS file with a complete header.
@@ -112,13 +116,15 @@ FITS get ordered
 :CUSTOM_ID: datasets-layout
 :END:
 #+BEGIN_NOTES
-What is an ASDF file.
-What's in the ASDF file.
-Why the ASDF file.
+- What is an ASDF file.
+- What's in the ASDF file.
+- Why the ASDF file.
 #+END_NOTES
 
+#+ATTR_REVEAL: :frag (fade-in)
 - Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.
 - Powerful Python library, and initial support in C++ and IDL.
+- Used heavily by JWST data.
 - DKIST ASDF files contain:
   - A copy of all the FITS headers for all files.
   - A copy of the inventory record which is searchable via the DKIST data search API.
@@ -129,7 +135,9 @@ Why the ASDF file.
 :PROPERTIES:
 :CUSTOM_ID: challenge-download
 :END:
-
+#+BEGIN_NOTES
+- From the web data portal it's only possible to download complete datasets.
+#+END_NOTES
 #+BEGIN_QUOTE
 How can we make it possible to download a subset of the data based on metadata.
 #+END_QUOTE
@@ -144,6 +152,9 @@ Arbitrary queries based on all available metadata is a complex problem for a web
 :PROPERTIES:
 :CUSTOM_ID: search-and-download
 :END:
+#+BEGIN_NOTES
+- In this example we access the full table of FITS headers and use those headers to decide where the good seeing ends.
+#+END_NOTES
 
 The DKIST search portal and ~dkist~ package allow searching based on a limited subset of all metadata.
 
@@ -165,6 +176,11 @@ sds.files.download(path="~/dkist/data/{dataset_id}/")
 :PROPERTIES:
 :CUSTOM_ID: delayed-io
 :END:
+#+BEGIN_NOTES
+- Given a whole set of FITS files you could open them all and parse the headers.
+- Much quicker to read the ASDF file which already contains the metadata needed.
+- Dask is a project designed to parallelise Python code.
+#+END_NOTES
 
 #+BEGIN_QUOTE
 You think you can open 10s or 100s of thousands files at once, but you just can't.
@@ -174,10 +190,27 @@ Rather than opening all the files to read the headers to reconstruct the whole a
 
 We build an array comprised of all the arrays in the FITS files, but it's "delayed" by using ~dask~, so the files are only opened on demand.
 
-#+attr_html: :width 500px
+#+attr_html: :width 90%
 [[./images/dask-repr.png]]
 
-*** Distributed Parallel
+*** Delayed Compute
+:PROPERTIES:
+:CUSTOM_ID: distributed
+:END:
+#+BEGIN_NOTES
+- Computation of the array isn't triggered until it's needed or you do it explicitly.
+- Here we do a rebinning operation and then trigger the compute.
+- Dask can schedule compute in parallel, locally, on the cloud or on HPC clusters
+#+END_NOTES
+
+#+BEGIN_SRC python
+ds = dkist.load_dataset("~/dkist/AGLKO/")
+rebinned_ds = ds[0, ..., :-5].rebin((10, 1, 10))
+computed_data = rebinned_ds.data.compute()
+#+END_SRC
+
+#+attr_html: :width 90%
+[[./images/dask-distributed-rebin.png]]
 
 * Current and Future Status
 :PROPERTIES:
