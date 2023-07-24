@@ -24,6 +24,7 @@
 :END:
 
 #+REVEAL_HTML: <h3 style="padding-bottom: 20%;"> Stuart Mumford </h3>
+#+REVEAL_HTML: <a style="background: rgba(255, 255, 255, 0.7); padding: 0.5em;" href="https://cadair.github.io/2023-dkist-talk/">https://cadair.github.io/2023-dkist-talk</a>
 #+REVEAL_HTML: <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
 
 * The Inouye Solar Telescope
