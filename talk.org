@@ -1,7 +1,7 @@
 #+REVEAL_ROOT: ./src/reveal.js/
 #+REVEAL_MATHJAX_URL: ./src/mathjax/es5/tex-chtml.js
 #+REVEAL_HIGHLIGHT_CSS: %r/plugin/highlight/monokai.css
-#+REVEAL_PLUGINS: (notes highlight)
+#+REVEAL_PLUGINS: (notes highlight multiplex)
 #+REVEAL_THEME: simple
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND: ./images/filt_Gband1_yellow1_1920.jpg
 #+REVEAL_DEFAULT_SLIDE_BACKGROUND_OPACITY: 0.2
@@ -10,6 +10,9 @@
 #+OPTIONS: reveal_title_slide:nil
 #+REVEAL_EXTRA_CSS: org.css
 #+REVEAL_INIT_OPTIONS: hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false
+#+REVEAL_MULTIPLEX_ID: e6fe5fd97d924415
+#+REVEAL_MULTIPLEX_SECRET: 16902089082544472937
+#+REVEAL_MULTIPLEX_URL: https://reveal-multiplex.glitch.me
 
 * DKIST Level 1 Data and Using it in Python
 :PROPERTIES:
@@ -61,21 +64,22 @@
 
 - ~dkist~ package available now on PyPI and conda-forge.
 - Developed openly on GitHub since the start.
+- Under review to be a SunPy affiliated package.
 - Provides:
   - a plugin for SunPy's Fido to search datasets,
   - helpers for downloading FITS files with Globus,
   - A ~Dataset~ class based on ~NDCube~.
 - Uses ~dask~ to delay I/O of FITS files.
 - Uses ~gWCS~ to represent the coordinates of the whole dataset.
-
-#+attr_html: :width 80%
-[[./images/dkist-repo-overview.png]]
 #+REVEAL_HTML: </div>
 
 #+REVEAL_HTML: <div class='right'>
 
-#+attr_html: :width 90%
+#+attr_html: :width 80%
 [[./images/vbi_plot.png]]
+
+#+attr_html: :width 80% :style margin-top:-20px;
+[[./images/dkist-repo-overview.png]]
 
 #+REVEAL_HTML: </div>
 
@@ -97,6 +101,9 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 
 #+attr_html: :width 100%
 [[./images/portal_results.png]]
+
+#+attr_html: :style margin-top:-2em;
+[[https://dkist.data.nso.edu]]
 
 ** Makeup of a dataset
 :PROPERTIES:
@@ -121,7 +128,7 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 - Why the ASDF file.
 #+END_NOTES
 
-#+ATTR_REVEAL: :frag (fade-in)
+#+ATTR_REVEAL: :frag (none fade-in)
 - Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.
 - Powerful Python library, and initial support in C++ and IDL.
 - Used heavily by JWST data.
@@ -136,6 +143,7 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 :CUSTOM_ID: challenge-download
 :END:
 #+BEGIN_NOTES
+- Data is not pre-processed for download.
 - From the web data portal it's only possible to download complete datasets.
 #+END_NOTES
 #+BEGIN_QUOTE
@@ -144,9 +152,30 @@ How can we make it possible to download a subset of the data based on metadata.
 
 The scale of the DKIST datasets mean that pre-processing them before download is not feasible.
 
-Maximum flexibility is achieved by facilitating download based on all metadata.
+Ideally you would be able to download files based on searches of all metadata.
 
-Arbitrary queries based on all available metadata is a complex problem for a web service.
+This is a complex problem for a web service, when there are likely to be billions of files.
+
+#+ATTR_REVEAL: :frag (fade-in)
+#+BEGIN_SRC python
+>>> Fido.search(a.dkist.Embargoed.false)
+<sunpy.net.fido_factory.UnifiedResponse object at 0x7f95313b5d50>
+Results from 1 Provider:
+
+179 Results from the DKISTClient:
+
+       Start Time               End Time        Instrument   Wavelength   Dataset ID ... Downloadable Has Spectral Axis Has Temporal Axis Average Spatial Sampling Average Temporal Sampling
+                                                                 nm                  ...                                                           arcsec                      s
+----------------------- ----------------------- ---------- -------------- ---------- ... ------------ ----------------- ----------------- ------------------------ -------------------------
+2022-06-02T17:22:50.176 2022-06-02T17:47:30.856        VBI 486.0 .. 486.0      BLKGA ...         True             False              True      0.01099999994039536         82.26000000000653
+2022-06-02T17:21:55.346 2022-06-02T17:47:58.286        VBI 393.0 .. 393.0      BJLKB ...         True             False              True      0.01099999994039536         82.26000000000653
+2022-06-02T17:22:22.754 2022-06-02T17:48:25.694        VBI 430.0 .. 430.0      BKJYA ...         True             False              True      0.01099999994039536         82.25999999999694
+                    ...                     ...        ...            ...        ... ...          ...               ...               ...                      ...                       ...
+2022-05-24T19:17:29.766 2022-05-24T20:05:01.446        VBI 393.0 .. 393.0      ARMVX ...         True             False              True     0.010999999940395355        54.840001000004435
+2022-05-24T18:20:24.766 2022-05-24T19:08:51.285        VBI 393.0 .. 393.0      APYJL ...         True             False              True     0.010999999940395355         54.83999899999468
+2022-05-24T19:17:02.334 2022-05-24T20:04:34.014        VBI 430.0 .. 430.0      BVYJK ...         True             False              True     0.010999999940395355         54.83999999999476
+Length = 179 rows
+#+END_SRC
 
 *** Search for metadata data
 :PROPERTIES:

@@ -14,18 +14,7 @@
 <link rel="stylesheet" href="./src/reveal.js/dist/theme/simple.css" id="theme"/>
 
 <link rel="stylesheet" href="org.css"/>
-<link rel="stylesheet" href="./src/reveal.js/plugin/highlight/monokai.css"/>
-<!-- If the query includes 'print-pdf', include the PDF print sheet -->
-<script>
-    if( window.location.search.match( /print-pdf/gi ) ) {
-        var link = document.createElement( 'link' );
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = './src/reveal.js/css/print/pdf.css';
-        document.getElementsByTagName( 'head' )[0].appendChild( link );
-    }
-</script>
-</head>
+<link rel="stylesheet" href="./src/reveal.js/plugin/highlight/monokai.css"/></head>
 <body>
 <div class="reveal">
 <div class="slides">
@@ -109,13 +98,13 @@
 <div class='right'>
 
 
-<div id="orgdf263a6" class="figure">
+<div id="org6abaf28" class="figure">
 <p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="80%" />
 </p>
 </div>
 
 
-<div id="orgb8d662b" class="figure">
+<div id="org8de8a74" class="figure">
 <p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" style="margin-top:-20px;" />
 </p>
 </div>
@@ -149,7 +138,7 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 </p>
 
 
-<div id="orga8b6f0e" class="figure">
+<div id="orgabd5559" class="figure">
 <p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
 </p>
 </div>
@@ -317,7 +306,7 @@ We build an array comprised of all the arrays in the FITS files, but it's "delay
 </p>
 
 
-<div id="orgb31d1a1" class="figure">
+<div id="orgadc0c2a" class="figure">
 <p><img src="./images/dask-repr.png" alt="dask-repr.png" width="90%" />
 </p>
 </div>
@@ -344,7 +333,7 @@ computed_data = rebinned_ds.data.compute()
 </div>
 
 
-<div id="orgabf13a6" class="figure">
+<div id="org69f4dd8" class="figure">
 <p><img src="./images/dask-distributed-rebin.png" alt="dask-distributed-rebin.png" width="90%" />
 </p>
 </div>
@@ -388,8 +377,8 @@ computed_data = rebinned_ds.data.compute()
 </section>
 </section>
 <section>
-<section id="slide-org66b40f5" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
-<h2 id="org66b40f5">Thank You</h2>
+<section id="slide-orgedaa54c" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
+<h2 id="orgedaa54c">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -417,7 +406,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org4decde8" class="figure">
+<div id="orgd62f5bb" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>
@@ -439,11 +428,11 @@ Reveal.initialize({
 plugins: [RevealNotes, RevealHighlight],
 hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false,
 multiplex: {
-    secret: '16902089082544472937', // null if client
+    secret: null, // null if client
     id: 'e6fe5fd97d924415', // id, obtained from socket.io server
     url: 'https://reveal-multiplex.glitch.me' // Location of socket.io server
 },
-dependencies: [ { src: 'https://reveal-multiplex.glitch.me/socket.io/socket.io.js', async: true }, { src: 'https://reveal-multiplex.glitch.me/master.js', async: true } ]
+dependencies: [ { src: 'https://reveal-multiplex.glitch.me/socket.io/socket.io.js', async: true }, { src: 'https://reveal-multiplex.glitch.me/client.js', async: true } ]
 });
 
 </script>
