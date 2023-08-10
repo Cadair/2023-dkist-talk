@@ -34,8 +34,15 @@
 <section id="slide-title" data-background="./images/vbi_blue_hires.jpg" data-background-position="top" data-background-opacity="1" class="title">
 <h2 id="title">DKIST Level 1 Data and Using it in Python</h2>
 <h3 style="padding-bottom: 20%;"> Stuart Mumford </h3>
-<a style="background: rgba(255, 255, 255, 0.7); padding: 0.5em;" href="https://cadair.github.io/2023-dkist-talk/">https://cadair.github.io/2023-dkist-talk</a>
 <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
+<aside class="notes">
+<ul>
+<li>Hello, I am Stuart Mumford and I have been working with the DKIST Data Center for nearly 7 years, primarily on the level 1 data products and <code>dkist</code> package.</li>
+<li>This talk is a <i>lightning</i> fast overview of the Level 1 data products and the <code>dkist</code> Python package.</li>
+
+</ul>
+
+</aside>
 
 </section>
 </section>
@@ -44,8 +51,8 @@
 <h2 id="dkist">The Inouye Solar Telescope</h2>
 <aside class="notes">
 <ul>
-<li>VISP is a slit-spectrograph with polarimitery.</li>
-<li>VBI is a dual-channel broadband imager.</li>
+<li>DKIST has been observing science proposals since early 2022.</li>
+<li>179 datasets are now publically available.</li>
 
 </ul>
 
@@ -54,9 +61,8 @@
 <div class='left' style='width: 60%; margin-left:-5em;font-weight: bolder;'>
 <ul>
 <li>At the Haleakalā Observatory on the island of Maui.</li>
-<li>The largest mirror of any solar telescope in the world - 4 meters.</li>
-<li>First solar images captured by the observatory in late 2019.</li>
-<li>Will be operational for at least 44 years – or four solar cycles.</li>
+<li>DKIST has been observing science proposals since early 2022.</li>
+<li>179 datasets are now available publically.</li>
 <li>Two instruments currently on-line:
 <ul>
 <li>Visible Spectropolarimeter (VISP)</li>
@@ -82,7 +88,17 @@
 <aside class="notes">
 <ul>
 <li><code>dkist</code> package aims to make it easy to get and load DKIST data.</li>
-<li>Also a place for the community to collaborate on DKIST-specifc analysis tools.</li>
+<li>Also a place for the community to collaborate on DKIST-specific analysis tools.</li>
+<li>Provides:
+<ul>
+<li>Dataset search</li>
+<li>Metadata download</li>
+<li><code>Dataset</code> class</li>
+<li>Coordinate info</li>
+<li>Lazy-loading array where data is read from the FITS files.</li>
+<li>Coordinate information for all pixels.</li>
+
+</ul></li>
 
 </ul>
 
@@ -93,7 +109,7 @@
 <ul>
 <li><code>dkist</code> package available now on PyPI and conda-forge.</li>
 <li>Developed openly on GitHub since the start.</li>
-<li>Under review to be a SunPy affiliated package.</li>
+<li>A SunPy affiliated package.</li>
 <li>Provides:
 <ul>
 <li>a plugin for SunPy's Fido to search datasets,</li>
@@ -110,13 +126,13 @@
 <div class='right'>
 
 
-<div id="orgd05ccb5" class="figure">
+<div id="org2dc0b96" class="figure">
 <p><img src="./images/vbi_plot.png" alt="vbi_plot.png" width="80%" />
 </p>
 </div>
 
 
-<div id="orgf1ebfe2" class="figure">
+<div id="orga9f3785" class="figure">
 <p><img src="./images/dkist-repo-overview.png" alt="dkist-repo-overview.png" width="80%" style="margin-top:-20px;" />
 </p>
 </div>
@@ -129,9 +145,11 @@
 <section id="slide-datasets" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
 <h2 id="datasets">Level One Data</h2>
 <aside class="notes">
-<p>
-A dataset is the result of a calibration run, and can be loaded into a single array.
-</p>
+<ul>
+<li>Read the slid</li>
+<li>Web search "portal", allows downloads of complete datasets with Globus.</li>
+
+</ul>
 
 </aside>
 
@@ -150,7 +168,7 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 </p>
 
 
-<div id="orga882635" class="figure">
+<div id="orgaba165c" class="figure">
 <p><img src="./images/portal_results.png" alt="portal_results.png" width="100%" />
 </p>
 </div>
@@ -164,8 +182,17 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 <h3 id="datasets-layout">Makeup of a dataset</h3>
 <aside class="notes">
 <ul>
-<li>Many FITS - current max 33,000 - 100s of 1000s possible</li>
+<li>Each "calibrated exposure" goes in a FITS file.</li>
+<li>We therefore end up with many FITS files per dataset, current max is 33,000 but 100s of thousands possible.</li>
 <li>Each FITS file has a well documented header with information about where that file sits in the dataset array.</li>
+<li>Single array requires ordering the slices in each FITS file - all this information is in the FITS headers.</li>
+<li>Each dataset also includes:
+<ul>
+<li>An ASDF file - containing all metadata</li>
+<li>A preview movie</li>
+<li>A quality report pdf.</li>
+
+</ul></li>
 
 </ul>
 
@@ -173,8 +200,9 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 
 <ul>
 <li>Each "calibrated exposure" is in a FITS file with a complete header.</li>
-<li>Each dataset contains <i>many</i> FITS files (current max is 33,000).</li>
+<li>Therefore each dataset contains <i>many</i> FITS files.</li>
 <li>To reconstruct these files into a multi-dim array we need to <i>order</i> them.</li>
+<li>Each dataset also includes: An ASDF file, a preview movie and a quality report.</li>
 
 </ul>
 
@@ -183,9 +211,21 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 <h3 id="datasets-layout">ASDF Files</h3>
 <aside class="notes">
 <ul>
-<li>What is an ASDF file.</li>
-<li>What's in the ASDF file.</li>
-<li>Why the ASDF file.</li>
+<li>ASDF is a new (relative to FITS!) file format with more flexible metadata.</li>
+<li>Used heavily by JWST data.</li>
+<li>Powerful Python library, and initial support in C++ and IDL.</li>
+
+</ul>
+
+<p>
+&lt;Advance fragment&gt;
+</p>
+
+<ul>
+<li>The DKIST Level 1 ASDF files are <i>primarily</i> a way to distribute the metadata independantly of the data.</li>
+<li><b>List of things in ASDF</b></li>
+<li>This allows you to make decisions about the data you want to download based on the metadata.</li>
+<li><i>With the same Python interface as interacting with the data</i>.</li>
 
 </ul>
 
@@ -193,8 +233,6 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 
 <ul>
 <li>Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.</li>
-<li class="fragment fade-in">Powerful Python library, and initial support in C++ and IDL.</li>
-<li class="fragment fade-in">Used heavily by JWST data.</li>
 <li class="fragment fade-in">DKIST ASDF files contain:
 <ul>
 <li>A copy of all the FITS headers for all files.</li>
@@ -207,33 +245,32 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 </ul>
 
 </section>
+</section>
+<section>
 <section id="slide-challenge-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
-<h3 id="challenge-download">Search and Download - Data / Metadata Separation</h3>
+<h2 id="challenge-download">Search and Download - Data / Metadata Separation</h2>
 <aside class="notes">
 <ul>
-<li>Data is not pre-processed for download.</li>
-<li>From the web data portal it's only possible to download complete datasets.</li>
+<li><p>
+The DKIST DC provides a search API for <i>datasets</i>.
+</p>
+
+<p>
+&lt;advance slide&gt;
+</p></li>
+
+<li>This lets you search for a dataset based on metadata about the <i>whole</i> dataset, i.e. Time, IDs, Average R0.</li>
+<li>But what if you want to search for a smaller unit of data?</li>
+<li>The Python tools allow you to do this by working with the metadata from the ASDF file before downloading any files.</li>
 
 </ul>
 
 </aside>
 <blockquote >
 <p>
-How can we make it possible to download a subset of the data based on metadata.
+How can we make it possible to download a subset of a dataset based on metadata.
 </p>
 </blockquote>
-
-<p>
-The scale of the DKIST datasets mean that pre-processing them before download is not feasible.
-</p>
-
-<p>
-Ideally you would be able to download files based on searches of all metadata.
-</p>
-
-<p>
-This is a complex problem for a web service, when there are likely to be billions of files.
-</p>
 
 <div class="org-src-container">
 
@@ -243,26 +280,27 @@ Results from 1 Provider:
 
 179 Results from the DKISTClient:
 
-       Start Time               End Time        Instrument   Wavelength   Dataset ID ... Downloadable Has Spectral Axis Has Temporal Axis Average Spatial Sampling Average Temporal Sampling
-                                                                 nm                  ...                                                           arcsec                      s
------------------------ ----------------------- ---------- -------------- ---------- ... ------------ ----------------- ----------------- ------------------------ -------------------------
-2022-06-02T17:22:50.176 2022-06-02T17:47:30.856        VBI 486.0 .. 486.0      BLKGA ...         True             False              True      0.01099999994039536         82.26000000000653
-2022-06-02T17:21:55.346 2022-06-02T17:47:58.286        VBI 393.0 .. 393.0      BJLKB ...         True             False              True      0.01099999994039536         82.26000000000653
-2022-06-02T17:22:22.754 2022-06-02T17:48:25.694        VBI 430.0 .. 430.0      BKJYA ...         True             False              True      0.01099999994039536         82.25999999999694
-                    ...                     ...        ...            ...        ... ...          ...               ...               ...                      ...                       ...
-2022-05-24T19:17:29.766 2022-05-24T20:05:01.446        VBI 393.0 .. 393.0      ARMVX ...         True             False              True     0.010999999940395355        54.840001000004435
-2022-05-24T18:20:24.766 2022-05-24T19:08:51.285        VBI 393.0 .. 393.0      APYJL ...         True             False              True     0.010999999940395355         54.83999899999468
-2022-05-24T19:17:02.334 2022-05-24T20:04:34.014        VBI 430.0 .. 430.0      BVYJK ...         True             False              True     0.010999999940395355         54.83999999999476
+       Start Time               End Time        Instrument   Wavelength   Dataset ID ...
+                                                                 nm                  ...
+----------------------- ----------------------- ---------- -------------- ---------- ...
+2022-06-02T17:22:50.176 2022-06-02T17:47:30.856        VBI 486.0 .. 486.0      BLKGA ...
+2022-06-02T17:21:55.346 2022-06-02T17:47:58.286        VBI 393.0 .. 393.0      BJLKB ...
+2022-06-02T17:22:22.754 2022-06-02T17:48:25.694        VBI 430.0 .. 430.0      BKJYA ...
+                    ...                     ...        ...            ...        ... ...
+2022-05-24T19:17:29.766 2022-05-24T20:05:01.446        VBI 393.0 .. 393.0      ARMVX ...
+2022-05-24T18:20:24.766 2022-05-24T19:08:51.285        VBI 393.0 .. 393.0      APYJL ...
+2022-05-24T19:17:02.334 2022-05-24T20:04:34.014        VBI 430.0 .. 430.0      BVYJK ...
 Length = 179 rows
 </code></pre>
 </div>
 
 </section>
 <section id="slide-search-and-download" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
-<h4 id="search-and-download">Search for metadata data</h4>
+<h3 id="search-and-download">Search for metadata data</h3>
 <aside class="notes">
 <ul>
-<li>In this example we access the full table of FITS headers and use those headers to decide where the good seeing ends.</li>
+<li>One example of the utility of this metadata-first approach is filtering based on Fried Parameter.</li>
+<li>The headers table contains all the FITS headers, including <code>ATMOS_R0</code>.</li>
 
 </ul>
 
@@ -276,28 +314,48 @@ The DKIST search portal and <code>dkist</code> package allow searching based on 
 Downloading the ASDF file gives you a <i>complete</i> set of metadata for all files contained in a dataset.
 </p>
 
+<p>
+This means we can decide which parts of the dataset we are interested in.
+</p>
+
+<div class='left'>
 <div class="org-src-container">
 
-<pre   ><code class="python" ># Select headers for only frames with bad r0
+<pre   ><code class="python" ># Load the dataset
+ds = dkist.load_dataset("~/dkist/data/AGLKO/")
+
+# Select headers for only frames with bad r0
 bad_headers = ds.headers[ds.headers["ATMOS_R0"] &gt; 1]
 
 # Slice up to the index of the first bad frame
 sds = ds[0, :bad_headers[0]["DINDEX3"]-1, :, :]
 
-# Download only files with good seeing.
-sds.files.download(path="~/dkist/data/{dataset_id}/")
+# Download only files with good seeing, to the same directory.
+sds.files.download()
 </code></pre>
 </div>
 
+</div>
+
+<div class=right'>
+
+
+<div id="orga739759" class="figure">
+<p><img src="./images/BEOGN_seeing.png" alt="BEOGN_seeing.png" width="50%" />
+</p>
+</div>
+
+</div>
 
 </section>
+</section>
+<section>
 <section id="slide-delayed-io" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
-<h3 id="delayed-io">Too many files - Dask and delayed IO</h3>
+<h2 id="delayed-io">Too many files - Dask and delayed IO</h2>
 <aside class="notes">
 <ul>
-<li>Given a whole set of FITS files you could open them all and parse the headers.</li>
-<li>Much quicker to read the ASDF file which already contains the metadata needed.</li>
-<li>Dask is a project designed to parallelise Python code.</li>
+<li>How to reconstruct the data array from 1000s of files?</li>
+<li>You can't have them all open at once, and you can't load them all into memory.</li>
 
 </ul>
 
@@ -318,14 +376,14 @@ We build an array comprised of all the arrays in the FITS files, but it's "delay
 </p>
 
 
-<div id="orgf081e30" class="figure">
-<p><img src="./images/dask-repr.png" alt="dask-repr.png" width="90%" />
+<div id="orgb84d2b5" class="figure">
+<p><img src="./images/dask-repr.png" alt="dask-repr.png" width="80%" />
 </p>
 </div>
 
 </section>
 <section id="slide-distributed" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
-<h4 id="distributed">Delayed Compute</h4>
+<h3 id="distributed">Delayed Compute</h3>
 <aside class="notes">
 <ul>
 <li>Computation of the array isn't triggered until it's needed or you do it explicitly.</li>
@@ -338,14 +396,14 @@ We build an array comprised of all the arrays in the FITS files, but it's "delay
 
 <div class="org-src-container">
 
-<pre   ><code class="python" >ds = dkist.load_dataset("~/dkist/AGLKO/")
+<pre   ><code class="python" >ds = dkist.load_dataset("~/dkist/data/AGLKO/")
 rebinned_ds = ds[0, ..., :-5].rebin((10, 1, 10))
 computed_data = rebinned_ds.data.compute()
 </code></pre>
 </div>
 
 
-<div id="org9c7e71c" class="figure">
+<div id="org007d22d" class="figure">
 <p><img src="./images/dask-distributed-rebin.png" alt="dask-distributed-rebin.png" width="90%" />
 </p>
 </div>
@@ -357,12 +415,12 @@ computed_data = rebinned_ds.data.compute()
 <h2 id="status">Current and Future Status</h2>
 <blockquote >
 <p>
-<code>dkist</code> v1.0.0 is close to release (couple of weeks away).
+<code>dkist</code> v1.0 available now! On PyPI and conda-forge.
 </p>
 </blockquote>
 
 <p>
-<b>Features Implemented in v1.0.0:</b>
+<b>Features Implemented in v1.0:</b>
 </p>
 
 <ul>
@@ -389,8 +447,8 @@ computed_data = rebinned_ds.data.compute()
 </section>
 </section>
 <section>
-<section id="slide-org55c1832" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
-<h2 id="org55c1832">Thank You</h2>
+<section id="slide-orgac6d28c" data-background="./images/filt_Gband1_yellow1_1920.jpg" data-background-opacity="0.2">
+<h2 id="orgac6d28c">Thank You</h2>
 <div class='left'>
 
 <p>
@@ -402,15 +460,7 @@ Find me online:
 </p>
 
 <p>
-<a href="https://matrix.to/#/@cadair:cadair.com">@cadair:cadair.com</a> on Matrix
-</p>
-
-<p>
-<a href="https://mastodon.matrix.org/@Cadair">@Cadair@mastodon.matrix.org</a> on Mastodon
-</p>
-
-<p>
-<a href="https://github.com/Cadair">@Cadair</a> on GitHub
+Thanks to everyone at NSO and the DKIST DC.
 </p>
 
 </div>
@@ -418,7 +468,7 @@ Find me online:
 <div class='right'>
 
 
-<div id="org45e8d81" class="figure">
+<div id="org66f11ce" class="figure">
 <p><img src="./images/cadair.jpg" alt="cadair.jpg" width="500px" />
 </p>
 </div>

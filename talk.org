@@ -24,8 +24,11 @@
 :END:
 
 #+REVEAL_HTML: <h3 style="padding-bottom: 20%;"> Stuart Mumford </h3>
-#+REVEAL_HTML: <a style="background: rgba(255, 255, 255, 0.7); padding: 0.5em;" href="https://cadair.github.io/2023-dkist-talk/">https://cadair.github.io/2023-dkist-talk</a>
 #+REVEAL_HTML: <a href="https://aperio.software"><img style='float: left; width: 20%; margin-top: 100px; height: 15%;' src='images/aperio.svg'/></a><a href="https://nso.edu"><img style='float: right; width: 20%; margin-top: 60px; height: 15%; margin-right: 5%%;' src='images/NSO-logo-blue.png'/></a>
+#+BEGIN_NOTES
+- Hello, I am Stuart Mumford and I have been working with the DKIST Data Center for nearly 7 years, primarily on the level 1 data products and ~dkist~ package.
+- This talk is a /lightning/ fast overview of the Level 1 data products and the ~dkist~ Python package.
+#+END_NOTES
 
 * The Inouye Solar Telescope
 :PROPERTIES:
@@ -34,15 +37,14 @@
 :reveal_background_opacity: 0.8
 :END:
 #+BEGIN_NOTES
-- VISP is a slit-spectrograph with polarimitery.
-- VBI is a dual-channel broadband imager.
+- DKIST has been observing science proposals since early 2022.
+- 179 datasets are now publically available.
 #+END_NOTES
 
 #+REVEAL_HTML: <div class='left' style='width: 60%; margin-left:-5em;font-weight: bolder;'>
 - At the Haleakalā Observatory on the island of Maui.
-- The largest mirror of any solar telescope in the world - 4 meters.
-- First solar images captured by the observatory in late 2019.
-- Will be operational for at least 44 years – or four solar cycles.
+- DKIST has been observing science proposals since early 2022.
+- 179 datasets are now available publically.
 - Two instruments currently on-line:
   - Visible Spectropolarimeter (VISP)
   - Visible Broadband Imager (VBI)
@@ -58,14 +60,21 @@
 :END:
 #+BEGIN_NOTES
 - ~dkist~ package aims to make it easy to get and load DKIST data.
-- Also a place for the community to collaborate on DKIST-specifc analysis tools.
+- Also a place for the community to collaborate on DKIST-specific analysis tools.
+- Provides:
+  - Dataset search
+  - Metadata download
+  - ~Dataset~ class
+  - Coordinate info
+  - Lazy-loading array where data is read from the FITS files.
+  - Coordinate information for all pixels.
 #+END_NOTES
 
 #+REVEAL_HTML: <div class='left'>
 
 - ~dkist~ package available now on PyPI and conda-forge.
 - Developed openly on GitHub since the start.
-- Under review to be a SunPy affiliated package.
+- A SunPy affiliated package.
 - Provides:
   - a plugin for SunPy's Fido to search datasets,
   - helpers for downloading FITS files with Globus,
@@ -89,7 +98,8 @@
 :CUSTOM_ID: datasets
 :END:
 #+BEGIN_NOTES
-A dataset is the result of a calibration run, and can be loaded into a single array.
+- Read the slid
+- Web search "portal", allows downloads of complete datasets with Globus.
 #+END_NOTES
 
 The data holdings at the DKIST Data Center are catalogued in unique "datasets".
@@ -111,51 +121,63 @@ This means that a dataset can contain a wide variety of data, such as, slit-spec
 :CUSTOM_ID: datasets-layout
 :END:
 #+BEGIN_NOTES
-- Many FITS - current max 33,000 - 100s of 1000s possible
+- Each "calibrated exposure" goes in a FITS file.
+- We therefore end up with many FITS files per dataset, current max is 33,000 but 100s of thousands possible.
 - Each FITS file has a well documented header with information about where that file sits in the dataset array.
+- Single array requires ordering the slices in each FITS file - all this information is in the FITS headers.
+- Each dataset also includes:
+  - An ASDF file - containing all metadata
+  - A preview movie
+  - A quality report pdf.
 #+END_NOTES
 
 - Each "calibrated exposure" is in a FITS file with a complete header.
-- Each dataset contains /many/ FITS files (current max is 33,000).
+- Therefore each dataset contains /many/ FITS files.
 - To reconstruct these files into a multi-dim array we need to /order/ them.
+- Each dataset also includes: An ASDF file, a preview movie and a quality report.
 
 ** ASDF Files
 :PROPERTIES:
 :CUSTOM_ID: datasets-layout
 :END:
 #+BEGIN_NOTES
-- What is an ASDF file.
-- What's in the ASDF file.
-- Why the ASDF file.
+- ASDF is a new (relative to FITS!) file format with more flexible metadata.
+- Used heavily by JWST data.
+- Powerful Python library, and initial support in C++ and IDL.
+
+<Advance fragment>
+
+- The DKIST Level 1 ASDF files are /primarily/ a way to distribute the metadata independantly of the data.
+- *List of things in ASDF*
+- This allows you to make decisions about the data you want to download based on the metadata.
+- /With the same Python interface as interacting with the data/.
+
 #+END_NOTES
 
 #+ATTR_REVEAL: :frag (none fade-in)
 - Advanced Scientific Data Format (ASDF) is a new file format with more flexible metadata than FITS.
-- Powerful Python library, and initial support in C++ and IDL.
-- Used heavily by JWST data.
 - DKIST ASDF files contain:
   - A copy of all the FITS headers for all files.
   - A copy of the inventory record which is searchable via the DKIST data search API.
   - An ordered list of filenames, and information about the array, such as dtype and shape.
   - A gWCS object representing world coordinates for the whole dataset array.
 
-** Search and Download - Data / Metadata Separation
+* Search and Download - Data / Metadata Separation
 :PROPERTIES:
 :CUSTOM_ID: challenge-download
 :END:
 #+BEGIN_NOTES
-- Data is not pre-processed for download.
-- From the web data portal it's only possible to download complete datasets.
+- The DKIST DC provides a search API for /datasets/.
+
+  <advance slide>
+
+- This lets you search for a dataset based on metadata about the /whole/ dataset, i.e. Time, IDs, Average R0.
+- But what if you want to search for a smaller unit of data?
+- The Python tools allow you to do this by working with the metadata from the ASDF file before downloading any files.
 #+END_NOTES
 #+BEGIN_QUOTE
-How can we make it possible to download a subset of the data based on metadata.
+How can we make it possible to download a subset of a dataset based on metadata.
 #+END_QUOTE
-
-The scale of the DKIST datasets mean that pre-processing them before download is not feasible.
-
-Ideally you would be able to download files based on searches of all metadata.
-
-This is a complex problem for a web service, when there are likely to be billions of files.
 
 #+ATTR_REVEAL: :frag (fade-in)
 #+BEGIN_SRC python
@@ -165,51 +187,65 @@ Results from 1 Provider:
 
 179 Results from the DKISTClient:
 
-       Start Time               End Time        Instrument   Wavelength   Dataset ID ... Downloadable Has Spectral Axis Has Temporal Axis Average Spatial Sampling Average Temporal Sampling
-                                                                 nm                  ...                                                           arcsec                      s
------------------------ ----------------------- ---------- -------------- ---------- ... ------------ ----------------- ----------------- ------------------------ -------------------------
-2022-06-02T17:22:50.176 2022-06-02T17:47:30.856        VBI 486.0 .. 486.0      BLKGA ...         True             False              True      0.01099999994039536         82.26000000000653
-2022-06-02T17:21:55.346 2022-06-02T17:47:58.286        VBI 393.0 .. 393.0      BJLKB ...         True             False              True      0.01099999994039536         82.26000000000653
-2022-06-02T17:22:22.754 2022-06-02T17:48:25.694        VBI 430.0 .. 430.0      BKJYA ...         True             False              True      0.01099999994039536         82.25999999999694
-                    ...                     ...        ...            ...        ... ...          ...               ...               ...                      ...                       ...
-2022-05-24T19:17:29.766 2022-05-24T20:05:01.446        VBI 393.0 .. 393.0      ARMVX ...         True             False              True     0.010999999940395355        54.840001000004435
-2022-05-24T18:20:24.766 2022-05-24T19:08:51.285        VBI 393.0 .. 393.0      APYJL ...         True             False              True     0.010999999940395355         54.83999899999468
-2022-05-24T19:17:02.334 2022-05-24T20:04:34.014        VBI 430.0 .. 430.0      BVYJK ...         True             False              True     0.010999999940395355         54.83999999999476
+       Start Time               End Time        Instrument   Wavelength   Dataset ID ...
+                                                                 nm                  ...
+----------------------- ----------------------- ---------- -------------- ---------- ...
+2022-06-02T17:22:50.176 2022-06-02T17:47:30.856        VBI 486.0 .. 486.0      BLKGA ...
+2022-06-02T17:21:55.346 2022-06-02T17:47:58.286        VBI 393.0 .. 393.0      BJLKB ...
+2022-06-02T17:22:22.754 2022-06-02T17:48:25.694        VBI 430.0 .. 430.0      BKJYA ...
+                    ...                     ...        ...            ...        ... ...
+2022-05-24T19:17:29.766 2022-05-24T20:05:01.446        VBI 393.0 .. 393.0      ARMVX ...
+2022-05-24T18:20:24.766 2022-05-24T19:08:51.285        VBI 393.0 .. 393.0      APYJL ...
+2022-05-24T19:17:02.334 2022-05-24T20:04:34.014        VBI 430.0 .. 430.0      BVYJK ...
 Length = 179 rows
 #+END_SRC
 
-*** Search for metadata data
+** Search for metadata data
 :PROPERTIES:
 :CUSTOM_ID: search-and-download
 :END:
 #+BEGIN_NOTES
-- In this example we access the full table of FITS headers and use those headers to decide where the good seeing ends.
+- One example of the utility of this metadata-first approach is filtering based on Fried Parameter.
+- The headers table contains all the FITS headers, including ~ATMOS_R0~.
 #+END_NOTES
 
 The DKIST search portal and ~dkist~ package allow searching based on a limited subset of all metadata.
 
 Downloading the ASDF file gives you a /complete/ set of metadata for all files contained in a dataset.
 
+This means we can decide which parts of the dataset we are interested in.
+
+#+REVEAL_HTML: <div class='left'>
 #+BEGIN_SRC python
+# Load the dataset
+ds = dkist.load_dataset("~/dkist/data/AGLKO/")
+
 # Select headers for only frames with bad r0
 bad_headers = ds.headers[ds.headers["ATMOS_R0"] > 1]
 
 # Slice up to the index of the first bad frame
 sds = ds[0, :bad_headers[0]["DINDEX3"]-1, :, :]
 
-# Download only files with good seeing.
-sds.files.download(path="~/dkist/data/{dataset_id}/")
+# Download only files with good seeing, to the same directory.
+sds.files.download()
 #+END_SRC
 
+#+REVEAL_HTML: </div>
 
-** Too many files - Dask and delayed IO
+#+REVEAL_HTML: <div class=right'>
+
+#+attr_html: :width 50%
+[[./images/BEOGN_seeing.png]]
+
+#+REVEAL_HTML: </div>
+
+* Too many files - Dask and delayed IO
 :PROPERTIES:
 :CUSTOM_ID: delayed-io
 :END:
 #+BEGIN_NOTES
-- Given a whole set of FITS files you could open them all and parse the headers.
-- Much quicker to read the ASDF file which already contains the metadata needed.
-- Dask is a project designed to parallelise Python code.
+- How to reconstruct the data array from 1000s of files?
+- You can't have them all open at once, and you can't load them all into memory.
 #+END_NOTES
 
 #+BEGIN_QUOTE
@@ -220,10 +256,10 @@ Rather than opening all the files to read the headers to reconstruct the whole a
 
 We build an array comprised of all the arrays in the FITS files, but it's "delayed" by using ~dask~, so the files are only opened on demand.
 
-#+attr_html: :width 90%
+#+attr_html: :width 80%
 [[./images/dask-repr.png]]
 
-*** Delayed Compute
+** Delayed Compute
 :PROPERTIES:
 :CUSTOM_ID: distributed
 :END:
@@ -234,7 +270,7 @@ We build an array comprised of all the arrays in the FITS files, but it's "delay
 #+END_NOTES
 
 #+BEGIN_SRC python
-ds = dkist.load_dataset("~/dkist/AGLKO/")
+ds = dkist.load_dataset("~/dkist/data/AGLKO/")
 rebinned_ds = ds[0, ..., :-5].rebin((10, 1, 10))
 computed_data = rebinned_ds.data.compute()
 #+END_SRC
@@ -248,10 +284,10 @@ computed_data = rebinned_ds.data.compute()
 :END:
 
 #+BEGIN_QUOTE
-~dkist~ v1.0.0 is close to release (couple of weeks away).
+~dkist~ v1.0 available now! On PyPI and conda-forge.
 #+END_QUOTE
 
-*Features Implemented in v1.0.0:*
+*Features Implemented in v1.0:*
 
 - Reading ASDF files into ~Dataset~ objects.
 - A SunPy Fido client for searching DKIST datasets.
@@ -274,11 +310,7 @@ Find me online:
 
  [[https://cadair.com][cadair.com]]
 
- [[https://matrix.to/#/@cadair:cadair.com][@cadair:cadair.com]] on Matrix
-
- [[https://mastodon.matrix.org/@Cadair][@Cadair@mastodon.matrix.org]] on Mastodon
-
- [[https://github.com/Cadair][@Cadair]] on GitHub
+Thanks to everyone at NSO and the DKIST DC.
 
 #+REVEAL_HTML: </div>
 
