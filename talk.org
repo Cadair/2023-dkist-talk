@@ -275,8 +275,7 @@ rebinned_ds = ds[0, ..., :-5].rebin((10, 1, 10))
 computed_data = rebinned_ds.data.compute()
 #+END_SRC
 
-#+attr_html: :width 90%
-[[./images/dask-distributed-rebin.png]]
+#+REVEAL_HTML: <video data-autoplay controls width=90% src="./images/dask-distributed.mp4"></video>
 
 * Current and Future Status
 :PROPERTIES:
