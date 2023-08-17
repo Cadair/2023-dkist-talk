@@ -98,7 +98,8 @@
 :CUSTOM_ID: datasets
 :END:
 #+BEGIN_NOTES
-- Read the slid
+- The data holdings at the DKIST Data Center are catalogued in unique "datasets".
+- A dataset broadly consists of a continuous set of observations taken by a single instrument, at a single pass band, with similar instrument parameters.
 - Web search "portal", allows downloads of complete datasets with Globus.
 #+END_NOTES
 
