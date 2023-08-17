@@ -9,7 +9,7 @@
 #+OPTIONS: num:nil
 #+OPTIONS: reveal_title_slide:nil
 #+REVEAL_EXTRA_CSS: org.css
-#+REVEAL_INIT_OPTIONS: hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false
+#+REVEAL_INIT_OPTIONS: hash: true, slideNumber: "c/t", showSlideNumber: 'speaker', center: false, totalTime: 720, width:1280, height:800
 #+REVEAL_MULTIPLEX_ID: e6fe5fd97d924415
 #+REVEAL_MULTIPLEX_SECRET: 16902089082544472937
 #+REVEAL_MULTIPLEX_URL: https://reveal-multiplex.glitch.me
