@@ -302,8 +302,15 @@ computed_data = rebinned_ds.data.compute()
 - Better tools for working with VBI mosaics.
 
 * Thank You
+:PROPERTIES:
+:CUSTOM_ID: final
+:END:
 
 #+REVEAL_HTML: <div class='left'>
+
+~dkist~ documentation:
+
+[[https://docs.dkist.nso.edu/projects/python-tools][docs.dkist.nso.edu/projects/python-tools]]
 
 Find me online:
 
@@ -316,6 +323,6 @@ Thanks to everyone at NSO and the DKIST DC.
 #+REVEAL_HTML: <div class='right'>
 
 #+attr_html: :width 500px
-[[./images/cadair.jpg]]
+[[./images/docs_square.png]]
 
 #+REVEAL_HTML: </div>
